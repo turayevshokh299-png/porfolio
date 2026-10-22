@@ -420,6 +420,9 @@ section{position:relative;padding:clamp(70px,11vw,140px) 0;scroll-margin-top:90p
   margin:26px 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
 .gallery-group::before{content:"";width:22px;height:3px;background:var(--red);border-radius:2px}
 .gallery-group:first-child{margin-top:0}
+.gallery-group-desc{column-span:all;-webkit-column-span:all;color:var(--ash);font-size:clamp(14px,1.4vw,16px);line-height:1.55;
+  max-width:62ch;margin:-4px 0 18px}
+.gallery-group:has(+ .gallery-group-desc){margin-bottom:10px}
 .detail-nav{max-width:var(--maxw);margin:0 auto;padding:0 22px 80px;display:flex;justify-content:space-between;gap:16px}
 .detail-nav button{flex:1;text-align:left;padding:24px 26px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line);transition:.35s var(--ease)}
 .detail-nav button:hover{border-color:var(--red);background:var(--panel-2)}
@@ -1164,6 +1167,7 @@ const CONFIG = {
         groups: [
           {
             title: { uz: "KARVON", ru: "KARVON", en: "KARVON" },
+            desc: { uz: "O'zbekiston davlat xaridlari (B2G) sohasida ta'minotchilar va davlat tashkilotlarini bog'lovchi «yagona darcha» tizimi.", ru: "Система «единого окна» в сфере госзакупок Узбекистана (B2G), которая связывает поставщиков и государственные организации.", en: "A “single window” system for public procurement (B2G) in Uzbekistan that connects suppliers with government organisations." },
             images: [
               "logos-update/logos/karvon/01.webp",
               "logos-update/logos/karvon/02.webp",
@@ -1185,6 +1189,7 @@ const CONFIG = {
           },
           {
             title: { uz: "B2 Management", ru: "B2 Management", en: "B2 Management" },
+            desc: { uz: "Sayohatni boshidan oxirigacha tashkil qiladigan turistik kompaniya: sizga faqat chamadonni yig'ish qoladi.", ru: "Туристическая компания, которая организует поездку от начала до конца: вам остаётся только собрать чемодан.", en: "A travel company that plans your trip from start to finish: all that's left for you is to pack." },
             images: [
               "logos-update/logos/b2_management/01.webp",
               "logos-update/logos/b2_management/02.webp",
@@ -1204,6 +1209,7 @@ const CONFIG = {
           },
           {
             title: { uz: "Besedkachi", ru: "Besedkachi", en: "Besedkachi" },
+            desc: { uz: "Besedka, naves, panjara va shunga o'xshash konstruksiyalar ishlab chiqaradi.", ru: "Производит беседки, навесы, решётки и похожие конструкции.", en: "Makes gazebos, canopies, grilles and similar structures." },
             images: [
               "logos-update/logos/besedkachi/01.webp",
               "logos-update/logos/besedkachi/02.webp",
@@ -1225,6 +1231,7 @@ const CONFIG = {
           },
           {
             title: { uz: "Eden Gym", ru: "Eden Gym", en: "Eden Gym" },
+            desc: { uz: "Sport zali va fitnes klub.", ru: "Спортивный зал и фитнес-клуб.", en: "Gym and fitness club." },
             images: [
               "logos-update/logos/eden_gym/01.webp",
               "logos-update/logos/eden_gym/02.webp",
@@ -1717,6 +1724,7 @@ const CONFIG = {
         const head = el("div", "gallery-group");
         head.textContent = L(gr.title);
         g.appendChild(head);
+        if (gr.desc && L(gr.desc)) { const ds = el("p", "gallery-group-desc"); ds.textContent = L(gr.desc); g.appendChild(ds); }
         gr.images.forEach((src) => { addShot(src, idx, L(p.title) + " — " + L(gr.title)); idx++; });
       });
     } else if (flat.length) {
